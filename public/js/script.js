@@ -6,6 +6,15 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "Omkar Prajapati",
 }).addTo(map);
 
+// const generateUniqueId = () => {
+//   let id;
+//   do {
+//     id = Math.random().toString().substr(2, 6);
+//   } while (userId[id]);
+
+//   return id;
+// };
+
 const markers = {};
 
 if (navigator.geolocation) {
@@ -21,9 +30,18 @@ if (navigator.geolocation) {
   );
 }
 
+map.on("drag", () => {
+  console.log("moving...");
+});
+
+let setIntialView = false;
 socket.on("receive-location", (data) => {
   const { id, username, longitude, latitude } = data;
-  map.setView([latitude, longitude], 16);
+  if (!setIntialView && id == socket.id) {
+    map.setView([latitude, longitude], 16);
+    setIntialView = true;
+  }
+
   const label = `${username}`;
   if (markers[id]) {
     markers[id].setLatLng([latitude, longitude]);
