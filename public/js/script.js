@@ -6,16 +6,19 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "Omkar Prajapati",
 }).addTo(map);
 
-// const generateUniqueId = () => {
-//   let id;
-//   do {
-//     id = Math.random().toString().substr(2, 6);
-//   } while (userId[id]);
+/*
+  object-model = [
+    {userId: socketId,
+    userName : "username",
+    postition: [long,latitude],
+    },
+    {},
+    {},
+  ]
 
-//   return id;
-// };
-
+*/
 const markers = {};
+let users = [];
 
 if (navigator.geolocation) {
   navigator.geolocation.watchPosition(
@@ -30,32 +33,41 @@ if (navigator.geolocation) {
   );
 }
 
+let isDragged = false;
 map.on("drag", () => {
-  console.log("moving...");
+  isDragged = true;
 });
 
-let setIntialView = false;
 socket.on("receive-location", (data) => {
   const { id, username, longitude, latitude } = data;
-  if (!setIntialView && id == socket.id) {
+  if (id === socket.id && !isDragged) {
     map.setView([latitude, longitude], 16);
-    setIntialView = true;
   }
 
-  const label = `${username}`;
-  if (markers[id]) {
-    markers[id].setLatLng([latitude, longitude]);
+  const currentUserIdx = users.findIndex((user) => user.userId === id);
+
+  if (currentUserIdx === -1) {
+    users.push({
+      map: L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup(`${username}`)
+        .openPopup(),
+      userId: id,
+      username,
+      longitude,
+      latitude,
+    });
   } else {
-    markers[id] = L.marker([latitude, longitude])
-      .addTo(map)
-      .bindPopup(label)
-      .openPopup();
+    users[currentUserIdx].map.setLatLng([latitude, longitude]);
   }
+
+  console.log("this is users", users);
 });
 
 socket.on("user-disconnected", (id) => {
-  if (markers[id]) {
-    map.removeLayer(markers[id]);
-    delete markers[id];
+  const user = users.find((user) => user.userId === id);
+  if (user) {
+    map.removeLayer(user.map);
+    users = users.filter((user) => user.userId !== id);
   }
 });
