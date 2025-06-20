@@ -9,8 +9,48 @@ body {
   width: 100%;
   height: 100%;
 }
-
+#main {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 #map {
   width: 100%;
   height: 100%;
+  z-index: 1;
+}
+
+#box {
+  display: none;
+  flex-direction: column;
+  row-gap: 7px;
+  z-index: 2;
+  position: absolute;
+  top: 4rem;
+  right: 2rem;
+  text-decoration: none;
+  background-color: skyblue;
+  padding: 0.5rem;
+  border-radius: 4px;
+  list-style: none;
+  padding-right: 2rem;
+}
+#box li {
+  list-style: none;
+  cursor: pointer;
+}
+
+#users {
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  background-color: skyblue;
+  border-radius: 1rem;
+  top: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
