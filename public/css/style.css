@@ -53,7 +53,9 @@ body {
   column-gap: 1rem;
   position: absolute;
   bottom: 2rem;
-  left: 35vw;
+  left: 50%;
+  transform: translateX(-50%);
+  /* left: 35vw; */
   background-color: skyblue;
   padding: 1rem;
   border-radius: 1rem;
