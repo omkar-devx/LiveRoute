@@ -35,7 +35,8 @@ if (navigator.geolocation) {
 }
 
 const routeBtn = document.getElementById("routeBtn");
-routeBtn.addEventListener("click", () => {
+let routingStart = false;
+const updateRoute = () => {
   const user1Id = document.getElementById("user1").value;
   const user2Id = document.getElementById("user2").value;
   const user1 = users.find((user) => user.userId === user1Id);
@@ -58,8 +59,24 @@ routeBtn.addEventListener("click", () => {
     routeWhileDragging: false,
     draggableWaypoints: false,
     addWaypoints: false,
-    createMarker: () => null, // Don't create extra markers
+    createMarker: () => null,
   }).addTo(map);
+};
+routeBtn.addEventListener("click", () => {
+  if (!routingStart) {
+    updateRoute();
+    routeBtn.innerText = "exit";
+    routingStart = true;
+  } else {
+    if (window.routeControl) {
+      map.removeControl(window.routeControl);
+      window.routeControl = null;
+    }
+    routeBtn.innerHTML = "route";
+    document.getElementById("user1").value = "";
+    document.getElementById("user2").value = "";
+    routingStart = false;
+  }
 });
 
 let isDragged = false;
@@ -126,6 +143,8 @@ socket.on("receive-location", (data) => {
     selectedUser2.innerHTML =
       `<option value="" disabled selected>select User2</option>` + userOptions;
   } else {
+    users[currentUserIdx].latitude = latitude;
+    users[currentUserIdx].longitude = longitude;
     users[currentUserIdx].map.setLatLng([latitude, longitude]);
   }
 });
