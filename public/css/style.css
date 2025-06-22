@@ -55,6 +55,7 @@ body {
 #distance-box {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   flex-direction: row;
   column-gap: 1rem;
   position: absolute;
