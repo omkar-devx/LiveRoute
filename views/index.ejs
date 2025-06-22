@@ -12,12 +12,32 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css"
+    />
   </head>
   <body>
     <div id="main">
       <div id="users">0</div>
       <div id="box"></div>
       <div id="map"></div>
+      <div id="distance-box">
+        <div id="from">
+          <select name="user1" id="user1">
+            <option value="" disabled selected>select User1</option>
+          </select>
+        </div>
+        <div>&#8596;</div>
+        <div id="to">
+          <select name="user2" id="user2">
+            <option value="" disabled selected>select User2</option>
+          </select>
+        </div>
+        <div>=</div>
+        <div id="totaldistance">23km</div>
+        <button id="routeBtn">route</button>
+      </div>
     </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet-src.min.js"
@@ -25,6 +45,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
     <script
       src="https://cdn.socket.io/4.8.1/socket.io.min.js"
       integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"

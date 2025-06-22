@@ -34,6 +34,34 @@ if (navigator.geolocation) {
   );
 }
 
+const routeBtn = document.getElementById("routeBtn");
+routeBtn.addEventListener("click", () => {
+  const user1Id = document.getElementById("user1").value;
+  const user2Id = document.getElementById("user2").value;
+  const user1 = users.find((user) => user.userId === user1Id);
+  const user2 = users.find((user) => user.userId === user2Id);
+
+  if (!user1 || !user2 || user1 == user2) {
+    alert("choose valid user");
+    return;
+  }
+
+  if (window.routeControl) {
+    map.removeControl(window.routeControl);
+  }
+
+  window.routeControl = L.Routing.control({
+    waypoints: [
+      L.latLng(user1.latitude, user1.longitude),
+      L.latLng(user2.latitude, user2.longitude),
+    ],
+    routeWhileDragging: false,
+    draggableWaypoints: false,
+    addWaypoints: false,
+    createMarker: () => null, // Don't create extra markers
+  }).addTo(map);
+});
+
 let isDragged = false;
 map.on("drag", () => {
   isDragged = true;
@@ -86,11 +114,20 @@ socket.on("receive-location", (data) => {
 
     const box = document.getElementById("box");
     box.innerHTML = users.map((user) => `<li>${user.username}</li>`).join("");
+
+    const selectedUser1 = document.getElementById("user1");
+    const selectedUser2 = document.getElementById("user2");
+
+    const userOptions = users
+      .map((user) => `<option value="${user.userId}">${user.username}</option>`)
+      .join("");
+    selectedUser1.innerHTML =
+      `<option value="" disabled selected>select User1</option>` + userOptions;
+    selectedUser2.innerHTML =
+      `<option value="" disabled selected>select User2</option>` + userOptions;
   } else {
     users[currentUserIdx].map.setLatLng([latitude, longitude]);
   }
-
-  console.log("this is users", users);
 });
 
 socket.on("user-disconnected", (id) => {

@@ -40,6 +40,26 @@ body {
   cursor: pointer;
 }
 
+#routeBtn {
+  padding: 5px;
+  width: 4rem;
+  border-radius: 5px;
+}
+
+#distance-box {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  column-gap: 1rem;
+  position: absolute;
+  bottom: 2rem;
+  left: 35vw;
+  background-color: skyblue;
+  padding: 1rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
 #users {
   z-index: 2;
   width: 2rem;
