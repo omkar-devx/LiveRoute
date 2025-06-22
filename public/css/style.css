@@ -45,6 +45,12 @@ body {
   width: 4rem;
   border-radius: 5px;
 }
+#reroute {
+  padding: 4px;
+  width: 2rem;
+  border-radius: 3px;
+  display: none;
+}
 
 #distance-box {
   display: flex;
@@ -55,7 +61,6 @@ body {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
-  /* left: 35vw; */
   background-color: skyblue;
   padding: 1rem;
   border-radius: 1rem;

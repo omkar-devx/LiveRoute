@@ -62,10 +62,12 @@ const updateRoute = () => {
     createMarker: () => null,
   }).addTo(map);
 };
+
 routeBtn.addEventListener("click", () => {
   if (!routingStart) {
     updateRoute();
     routeBtn.innerText = "exit";
+    document.getElementById("reroute").style.display = "block";
     routingStart = true;
   } else {
     if (window.routeControl) {
@@ -75,8 +77,14 @@ routeBtn.addEventListener("click", () => {
     routeBtn.innerHTML = "route";
     document.getElementById("user1").value = "";
     document.getElementById("user2").value = "";
+    document.getElementById("reroute").style.display = "none";
     routingStart = false;
   }
+});
+
+const reroute = document.getElementById("reroute");
+reroute.addEventListener("click", () => {
+  updateRoute();
 });
 
 let isDragged = false;
