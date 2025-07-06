@@ -30,6 +30,7 @@ function requestLocation() {
         if (position) {
           document.getElementById("location").style.display = "none";
           document.getElementById("message").style.display = "none";
+          // document.getElementById("message-box").style.display = "none";
         }
         const { longitude, latitude } = position.coords;
         socket.emit("send-location", { username, latitude, longitude });
