@@ -106,6 +106,7 @@ body {
 
 #message {
   z-index: 2;
+  display: none;
   padding: 1rem;
   background-color: red;
   width: max-content;
