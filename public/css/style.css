@@ -86,7 +86,8 @@ body {
 
 #location {
   z-index: 2;
-  width: 2rem;
+  width: max-content;
+  padding: 1rem;
   height: 2rem;
   border-radius: 1rem;
   background-color: red;
