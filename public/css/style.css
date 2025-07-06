@@ -53,11 +53,12 @@ body {
 }
 
 #distance-box {
+  width: max-content;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: row;
-  column-gap: 1rem;
+  column-gap: 2px;
   position: absolute;
   bottom: 2rem;
   left: 50%;
@@ -100,12 +101,17 @@ body {
     rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
+#message-box {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #message {
   z-index: 2;
   padding: 1rem;
   background-color: red;
   width: max-content;
   position: absolute;
-  margin-left: 40%;
-  margin-top: 40vh;
 }
