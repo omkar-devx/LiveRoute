@@ -51,6 +51,7 @@ retryBtn.addEventListener("click", () => {
   if (navigator.permissions) {
     navigator.permissions.query({ name: "geolocation" }).then((result) => {
       console.log(result);
+      document.getElementById("message").innerText = "Please Wait....";
       document.getElementById("message").style.display = "block";
       requestLocation();
     });
