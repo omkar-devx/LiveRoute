@@ -21,18 +21,43 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 // const markers = {};
 let users = [];
 
-if (navigator.geolocation) {
-  navigator.geolocation.watchPosition(
-    (position) => {
-      const { longitude, latitude } = position.coords;
-      socket.emit("send-location", { username, latitude, longitude });
-    },
-    (error) => {
-      console.error(error);
-    },
-    { enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }
-  );
+function requestLocation() {
+  if (navigator.geolocation) {
+    console.log(navigator.geolocation);
+    navigator.geolocation.watchPosition(
+      (position) => {
+        console.log("position", position);
+        if (position) {
+          document.getElementById("location").style.display = "none";
+          document.getElementById("message").style.display = "none";
+        }
+        const { longitude, latitude } = position.coords;
+        socket.emit("send-location", { username, latitude, longitude });
+      },
+      (error) => {
+        console.error(error.message);
+        if (error.message === "User denied Geolocation") {
+        }
+      },
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }
+    );
+  }
 }
+
+requestLocation();
+
+const retryBtn = document.getElementById("location");
+retryBtn.addEventListener("click", () => {
+  if (navigator.permissions) {
+    navigator.permissions.query({ name: "geolocation" }).then((result) => {
+      console.log("inside permission");
+      requestLocation();
+    });
+  } else {
+    console.log("outside permission");
+    requestLocation();
+  }
+});
 
 const routeBtn = document.getElementById("routeBtn");
 let routingStart = false;

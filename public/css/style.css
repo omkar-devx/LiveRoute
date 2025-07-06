@@ -82,3 +82,30 @@ body {
   justify-content: center;
   cursor: pointer;
 }
+
+#location {
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  background-color: red;
+  position: absolute;
+  margin-top: 2rem;
+  margin-left: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+#message {
+  z-index: 2;
+  padding: 1rem;
+  background-color: red;
+  width: max-content;
+  position: absolute;
+  margin-left: 40%;
+  margin-top: 40vh;
+}
